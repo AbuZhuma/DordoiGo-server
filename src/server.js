@@ -2,10 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+// const rateLimit = require()
+
 require('dotenv').config();
 
-const users = require("./routes/users")
 
+const users = require("./routes/users");
 const app = express();
 
 app.use(cors());
