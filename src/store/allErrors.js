@@ -8,8 +8,10 @@ const errors = {
     user_not_exist: "user not exist",
     users_not_list: "users not exist",
     bed_request: "bed request, check options",
-    edit_user: "invalid options: most be (username/lastname/email) or need change object",
+    edit_user: "invalid options: most be (username/lastname/email/bio/prod_categ) or need change object",
     pass_not: "invalid password or username ",
-    int_server: "Internal Server Error"
+    int_server: "Internal Server Error",
+    user_not_seller:"This user is not seller",
+    invalid_product:"Invalid product for adding"
 }
 module.exports = errors

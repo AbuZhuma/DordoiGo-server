@@ -11,7 +11,8 @@ const authUser = async (req, res) => {
         if (user) {
             const checkPassword = await comparePassword(password, user.password)
             if (checkPassword) {
-                const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
+                const userId = user.user_id
+                const token = jwt.sign({ userId }, SECRET_KEY, { expiresIn: '1h' });
                 const answ = {
                     message: "user authorized!",
                     user_id: user.user_id,

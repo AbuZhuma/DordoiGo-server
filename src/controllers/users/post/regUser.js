@@ -3,6 +3,7 @@ const genUserid = require("../../../helpers/genUserid")
 const sendErr = require("../../../helpers/sendErr")
 const SellerProfile = require("../../../models/profile/sellerProfile")
 const BuyerProfile = require("../../../models/profile/buyerProfile")
+const Product = require("../../../models/product/product")
 
 const regUser = async (req, res) => {
     const { username, email, password, cpassword, role_type } = req.body
@@ -43,11 +44,17 @@ const regUser = async (req, res) => {
             role_type: role_type,
             bio: ""
         }
+        const optionsProduct = {
+            user_id: userId,
+            products: []
+        }
         const user = new User(optionsUser)
         await user.save()
         if (role_type === "seller") {
             optionsProfile.products_category = []
             const profile = new SellerProfile(optionsProfile)
+            const products = new Product(optionsProduct)
+            await products.save()
             await profile.save()
         }else{
             const profile = new BuyerProfile(optionsProfile)
