@@ -2,11 +2,11 @@ const generateRandomID = require("../../../helpers/genUserid");
 const getUsersByKey = require("../../../helpers/getMongoDb/users/getUsersByKey");
 const sendErr = require("../../../helpers/sendErr");
 const checkProduct = require("../../../hooks/checkProduct");
-const Product = require("../../../models/product/product");
+const Product = require("../../../models/containers/container");
 
 const addProduct = async (req, res) => {
-    const { user_id, product } = req.body;
-    const user = await getUsersByKey({ user_id: user_id });
+    const { container_id, product } = req.body;
+    const user = await getUsersByKey({ container_id: container_id });
     const isCorrectProducts = checkProduct(product);
 
     if (!user) {
@@ -24,7 +24,7 @@ const addProduct = async (req, res) => {
         return;
     }
 
-    const curProducts = await Product.findOne({ user_id: user_id });
+    const curProducts = await Product.findOne({ container_id: container_id });
     const product_id = await generateRandomID(10);
     product.product_id = product_id;
 

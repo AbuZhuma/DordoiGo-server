@@ -1,5 +1,5 @@
 const checkProduct = (product) => {
-    const {name, description, price, categories, img_urls} = product
+    const {name, description, price, categories, img_urls, } = product
     let iCP = true
     let errOpt = null
     if(!name || (name && name.length < 5)){
@@ -18,7 +18,6 @@ const checkProduct = (product) => {
         errOpt = "invalid img_urls"
         iCP = false
     }
-
     return {iCP: iCP, err: errOpt}
 }
 

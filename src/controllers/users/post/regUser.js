@@ -1,18 +1,20 @@
-const User = require("../../../models/user/user")
+const BuyerUser = require("../../../models/user/buyerUser")
+const SellerUser = require("../../../models/user/sellerUser")
 const genUserid = require("../../../helpers/genUserid")
 const sendErr = require("../../../helpers/sendErr")
 const SellerProfile = require("../../../models/profile/sellerProfile")
 const BuyerProfile = require("../../../models/profile/buyerProfile")
-const Product = require("../../../models/product/product")
+const Product = require("../../../models/containers/container")
+const generateRandomID = require("../../../helpers/genUserid")
 
 const regUser = async (req, res) => {
-    const { username, email, password, cpassword, role_type } = req.body
+    const { username, email, password, cpassword, role_type, contact_number } = req.body
     try {
         if (role_type !== "seller" && role_type !== "buyer") {
             sendErr(res, "role_type_reg", 500)
             return
         }
-        if (username.length < 5) {
+        if (username && username.length < 5) {
             sendErr(res, "username_reg", 500)
             return
         }
@@ -25,10 +27,12 @@ const regUser = async (req, res) => {
             return
         }
         const userId = genUserid(15)
+        const container_id = await generateRandomID(10);
         const optionsUser = {
             username: username,
             email: email,
             password: password,
+            contact_number: contact_number,
             user_id: userId,
             role_type: role_type,
             created_at: new Date(),
@@ -39,24 +43,28 @@ const regUser = async (req, res) => {
         const optionsProfile = {
             user_id: userId,
             username: username,
+            contact_number: contact_number,
             email: email,
             lastname: "",
             role_type: role_type,
             bio: ""
         }
         const optionsProduct = {
-            user_id: userId,
+            container_id: container_id,
             products: []
         }
-        const user = new User(optionsUser)
-        await user.save()
         if (role_type === "seller") {
-            optionsProfile.products_category = []
+            optionsUser.container_id = container_id
+            optionsProfile.container_id = container_id
             const profile = new SellerProfile(optionsProfile)
             const products = new Product(optionsProduct)
+            const user = new SellerUser(optionsUser)
+            await user.save()
             await products.save()
             await profile.save()
         }else{
+            const user = new BuyerUser(optionsUser)
+            await user.save()
             const profile = new BuyerProfile(optionsProfile)
             await profile.save()
         }

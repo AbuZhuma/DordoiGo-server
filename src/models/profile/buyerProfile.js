@@ -5,7 +5,8 @@ const profileSchema = new mongoose.Schema({
     role_type: { type: String, required: true },
     email: { type: String,required: true, unique: true },
     lastname: { type: String, unique: false},
-    bio: {type: String, unique: false}
+    bio: {type: String, unique: false},
+    contact_number: { type: String, required: true, unique: true }
 })
 
 const BuyerProfile = mongoose.model('ProfileBuyer', profileSchema, "profiles");

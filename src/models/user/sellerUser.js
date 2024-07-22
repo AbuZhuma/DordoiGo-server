@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
     lastname: { type: String, unique: false},
     bio: {type: String, unique: false},
     is_active: { type: Boolean, required: true },
+    products_category: { type: [String] },
+    contact_number: { type: String, required: true, unique: true },
+    container_id: { type: String, required: true, unique: true }
 })
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
@@ -20,6 +23,6 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-const User = mongoose.model('User', userSchema, "users");
+const SellerUser = mongoose.model('SellerUser', userSchema, "users");
 
-module.exports = User
+module.exports = SellerUser

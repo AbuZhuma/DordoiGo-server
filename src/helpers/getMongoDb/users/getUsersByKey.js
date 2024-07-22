@@ -1,4 +1,4 @@
-const User = require('../../../models/user/user')
+const User = require('../../../models/user/sellerUser')
 
 const getUsersByKey = async(keys) => {
     try {

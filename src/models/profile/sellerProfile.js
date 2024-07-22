@@ -6,7 +6,9 @@ const profileSchema = new mongoose.Schema({
     email: { type: String,required: true, unique: true },
     lastname: { type: String, unique: false},
     bio: {type: String, unique: false},
-    products_category: { type: [String] } 
+    products_category: { type: [String] },
+    contact_number: { type: String, required: true, unique: true },
+    container_id: { type: String, required: true, unique: true }
 })
 
 const SellerProfile = mongoose.model('ProfileSeller', profileSchema, "profiles");

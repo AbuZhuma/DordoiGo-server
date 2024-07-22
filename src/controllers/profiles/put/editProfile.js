@@ -2,7 +2,7 @@ const getUsersByKey = require("../../../helpers/getMongoDb/users/getUsersByKey")
 const sendErr = require("../../../helpers/sendErr");
 const BuyerProfile = require("../../../models/profile/buyerProfile");
 const SellerProfile = require("../../../models/profile/sellerProfile");
-const User = require("../../../models/user/user");
+const User = require("../../../models/user/buyerUser");
 
 const editProfile = async (req, res) => {
     const { change, user_id } = req.body;
