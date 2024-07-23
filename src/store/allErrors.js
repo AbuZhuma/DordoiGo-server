@@ -12,6 +12,8 @@ const errors = {
     pass_not: "invalid password or username ",
     int_server: "Internal Server Error",
     user_not_seller:"This user is not seller",
-    invalid_product:"Invalid product for adding"
+    invalid_product:"Invalid product for adding",
+    products_or_container_not: "This container or product not exist ",
+    not_found: "just not fount"
 }
 module.exports = errors

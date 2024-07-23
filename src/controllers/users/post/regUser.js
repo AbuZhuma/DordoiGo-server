@@ -1,11 +1,11 @@
 const BuyerUser = require("../../../models/user/buyerUser")
 const SellerUser = require("../../../models/user/sellerUser")
-const genUserid = require("../../../helpers/genUserid")
+const genUserid = require("../../../helpers/genId")
 const sendErr = require("../../../helpers/sendErr")
 const SellerProfile = require("../../../models/profile/sellerProfile")
 const BuyerProfile = require("../../../models/profile/buyerProfile")
 const Product = require("../../../models/containers/container")
-const generateRandomID = require("../../../helpers/genUserid")
+const generateRandomID = require("../../../helpers/genId")
 
 const regUser = async (req, res) => {
     const { username, email, password, cpassword, role_type, contact_number } = req.body

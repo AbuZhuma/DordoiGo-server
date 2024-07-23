@@ -1,4 +1,4 @@
-const generateRandomID = require("../../../helpers/genUserid");
+const generateRandomID = require("../../../helpers/genId");
 const getUsersByKey = require("../../../helpers/getMongoDb/users/getUsersByKey");
 const sendErr = require("../../../helpers/sendErr");
 const checkProduct = require("../../../hooks/checkProduct");
@@ -10,7 +10,7 @@ const addProduct = async (req, res) => {
     const isCorrectProducts = checkProduct(product);
 
     if (!user) {
-        sendErr(res, "user_not_exist", 404);
+        sendErr(res, "products_or_container_not", 404);
         return;
     }
 

@@ -31,8 +31,9 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/api/users', users);
 app.use('/api/containers', products)
 app.use('/api/profiles', profiles)
+
 app.use('/api/search', () => {})
-app.use('/api/map', () => { })
+app.use('/api/map', () => {})
 
 
 app.listen(PORT, () => {
