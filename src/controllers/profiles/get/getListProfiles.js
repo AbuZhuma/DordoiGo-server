@@ -1,5 +1,5 @@
-const getAllProfiles = require("../../../helpers/getMongoDb/profiles/getAllProfiles")
-const getProfilesByKey = require("../../../helpers/getMongoDb/profiles/getProfileByKey")
+const getAllProfiles = require("../../../helpers/findMongoDb/profiles/getAllProfiles")
+const getProfilesByKey = require("../../../helpers/findMongoDb/profiles/getProfileByKey")
 const sendErr = require("../../../helpers/sendErr")
 
 const getListUsers = async (req, res) => {

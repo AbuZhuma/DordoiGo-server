@@ -1,5 +1,5 @@
-const getContainerByKey = require("../../../helpers/getMongoDb/containers/getContainerByKey")
-const searchProduct = require("../../../helpers/getMongoDb/containers/searchProduct")
+const getContainerByKey = require("../../../helpers/findMongoDb/containers/getContainerByKey")
+const searchProduct = require("../../../helpers/findMongoDb/containers/searchProduct")
 const sendErr = require("../../../helpers/sendErr")
 
 const deleteProduct = async(req, res) => {

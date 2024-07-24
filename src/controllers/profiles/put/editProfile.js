@@ -1,9 +1,7 @@
-const getUsersByKey = require("../../../helpers/getMongoDb/users/getUsersByKey");
+const getUsersByKey = require("../../../helpers/findMongoDb/users/getUsersByKey");
 const sendErr = require("../../../helpers/sendErr");
-const BuyerProfile = require("../../../models/profile/buyerProfile");
-const SellerProfile = require("../../../models/profile/sellerProfile");
-const BuyerUser = require("../../../models/user/buyerUser");
-const SellerUser = require("../../../models/user/sellerUser");
+const updateProfile = require("../../../helpers/updateMongoDb/profiles/updateProfile");
+const updateUser = require("../../../helpers/updateMongoDb/users/updateUser");
 
 const editProfile = async (req, res) => {
     const { change, user_id } = req.body;
@@ -21,16 +19,11 @@ const editProfile = async (req, res) => {
         if (change.products_category && change.products_category.length > 10) {
             delete change.products_category
         }
-        const result = user.role_type === "seller" ?
-            await SellerUser.updateOne({ user_id: userId }, { $set: change }):
-            await BuyerUser.updateOne({ user_id: userId }, { $set: change })
-        const profileResult = user.role_type === "seller" ?
-            await SellerProfile.updateOne({ user_id: userId }, { $set: change }) :
-            await BuyerProfile.updateOne({ user_id: userId }, { $set: change });
-
+        const result = await updateUser(user_id, change, user.role_type)
+        const profileResult = await updateProfile(user_id, change, user.role_type)
         if (result.nModified === 0 && profileResult.nModified === 0) {
             res.status(304).send("No changes made");
-        } else {
+        } else {    
             res.status(200).send("User is updated!");
         }
     } catch (error) {

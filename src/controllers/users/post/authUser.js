@@ -1,4 +1,4 @@
-const getUsersByKey = require("../../../helpers/getMongoDb/users/getUsersByKey")
+const getUsersByKey = require("../../../helpers/findMongoDb/users/getUsersByKey")
 const { comparePassword } = require("../../../helpers/hashing")
 const sendErr = require("../../../helpers/sendErr")
 const SECRET_KEY = process.env.JWT_SECRET
