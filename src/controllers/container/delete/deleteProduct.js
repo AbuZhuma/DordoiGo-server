@@ -1,11 +1,11 @@
+const getContainerByKey = require("../../../helpers/getMongoDb/containers/getContainerByKey")
 const searchProduct = require("../../../helpers/getMongoDb/containers/searchProduct")
 const sendErr = require("../../../helpers/sendErr")
-const Containers = require("../../../models/containers/container")
 
 const deleteProduct = async(req, res) => {
     const {container_id, product_id} = req.body
     try {
-        const containerExist = await Containers.findOne({container_id: container_id})
+        const containerExist = await getContainerByKey({container_id: container_id})
         if(containerExist && containerExist.products.length){
             const i = await searchProduct(containerExist, product_id)
             containerExist.products.splice(i, i + 1)

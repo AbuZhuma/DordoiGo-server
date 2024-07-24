@@ -1,8 +1,8 @@
 const generateRandomID = require("../../../helpers/genId");
+const getContainerByKey = require("../../../helpers/getMongoDb/containers/getContainerByKey");
 const getUsersByKey = require("../../../helpers/getMongoDb/users/getUsersByKey");
 const sendErr = require("../../../helpers/sendErr");
 const checkProduct = require("../../../hooks/checkProduct");
-const Product = require("../../../models/containers/container");
 
 const addProduct = async (req, res) => {
     const { container_id, product } = req.body;
@@ -23,8 +23,8 @@ const addProduct = async (req, res) => {
         res.status(400).send(isCorrectProducts.err);
         return;
     }
-
-    const curProducts = await Product.findOne({ container_id: container_id });
+    
+    const curProducts = await getContainerByKey({container_id: container_id})
     const product_id = await generateRandomID(10);
     product.product_id = product_id;
 

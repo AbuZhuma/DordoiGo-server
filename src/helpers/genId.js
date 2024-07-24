@@ -1,7 +1,7 @@
 const generateRandomID = (length) => {
     length = length / 2
     let id = '';
-    const characters = '0123456789$*&@$qwertyuiopasdfghjklzxcvbnm';
+    const characters = '0123456789qwertyuiopasdfghjklzxcvbnm';
     const charactersLength = characters.length;
 
     for (let i = 0; i < length; i++) {

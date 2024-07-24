@@ -1,6 +1,6 @@
 const express = require('express');
 const editProfile = require('../controllers/profiles/put/editProfile');
-const getListUsers = require('../controllers/profiles/get/getListUsers');
+const getListUsers = require('../controllers/profiles/get/getListProfiles');
 const router = express.Router();
 
 
