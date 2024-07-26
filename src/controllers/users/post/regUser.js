@@ -1,29 +1,19 @@
 const BuyerUser = require("../../../models/user/buyerUser")
 const SellerUser = require("../../../models/user/sellerUser")
-const genUserid = require("../../../helpers/genId")
-const sendErr = require("../../../helpers/sendErr")
+const genUserid = require("../../../helpers/genIdH")
+const sendErr = require("../../../helpers/sendErrH")
 const SellerProfile = require("../../../models/profile/sellerProfile")
 const BuyerProfile = require("../../../models/profile/buyerProfile")
 const Product = require("../../../models/containers/container")
-const generateRandomID = require("../../../helpers/genId")
+const generateRandomID = require("../../../helpers/genIdH")
+const checkUser = require("../../../hooks/checkUser")
 
 const regUser = async (req, res) => {
-    const { username, email, password, cpassword, role_type, contact_number } = req.body
+    const { username, email, password, role_type, contact_number } = req.body
     try {
-        if (role_type !== "seller" && role_type !== "buyer") {
-            sendErr(res, "role_type_reg", 500)
-            return
-        }
-        if (username && username.length < 5) {
-            sendErr(res, "username_reg", 500)
-            return
-        }
-        if (password !== cpassword || password.length < 5) {
-            password !== cpassword ? sendErr(res, "cpassword_reg", 500) : sendErr(res, "password_reg", 500)
-            return
-        }
-        if (!email || !email.includes("@")) {
-            sendErr(res, "email_reg", 500)
+        const answ = await checkUser(req.body)
+        if(answ !== "ok"){
+            sendErr(res, answ, 400)
             return
         }
         const userId = genUserid(15)

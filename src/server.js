@@ -7,7 +7,7 @@ require('dotenv').config();
 const users = require("./routes/users");
 const products = require("./routes/containers")
 const profiles = require("./routes/profiles")
-
+const search = require("./routes/search")
 const app = express();
 
 const limiter = rateLimit({
@@ -30,11 +30,8 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use('/api/users', users);
 app.use('/api/containers', products)
-app.use('/api/profiles', profiles)
-    
-app.use('/api/search', () => {})
-app.use('/api/map', () => {})
-
+app.use('/api/profiles', profiles)  
+app.use('/api/search', search)
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

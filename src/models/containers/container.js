@@ -8,7 +8,10 @@ const containerSchema = new mongoose.Schema({
             price: { type: String, required: true },
             categories: { type: [String], required: true },
             img_urls: { type: [String], required: true },
-            fead_backs: { type: [String] },
+            fead_backs: { type: [{
+                text: {type: String},
+                time: {type: String},
+            }] },
             product_id:  { type: String, required: true },
         }
     ]

@@ -1,6 +1,5 @@
-const { log } = require("console")
-const getContainerByKey = require("../../../helpers/findMongoDb/containers/getContainerByKey")
-const sendErr = require("../../../helpers/sendErr")
+const getContainerByKey = require("../../../helpers/findMongoDb/containers/getContainerByKeyH")
+const sendErr = require("../../../helpers/sendErrH")
 
 const getAllProducts = async (req, res) => {
     try {

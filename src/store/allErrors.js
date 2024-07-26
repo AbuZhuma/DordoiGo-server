@@ -3,6 +3,7 @@ const errors = {
     username_reg: "invalid username: most be (5>=)",
     password_reg: "invalid password: most be (5>=)",
     cpassword_reg: "invalid cpassword: most be (password === cpassword)",
+    contact_reg: "invalid contact number: most be (contact_number.length > 7)",
     email_reg: "invalid email: most be (@!)",
     token_auth: "invalid request: most be (token!)",
     user_not_exist: "user not exist",

@@ -1,8 +1,5 @@
-const sendErr = require("../../../helpers/sendErr");
-const Containers = require("../../../models/containers/container");
-const BuyerProfile = require("../../../models/profile/buyerProfile");
-const SellerProfile = require("../../../models/profile/sellerProfile");
-const BuyerUser = require("../../../models/user/buyerUser");
+const deleteOneH = require("../../../helpers/deleteOneH");
+const sendErr = require("../../../helpers/sendErrH");
 const SellerUser = require("../../../models/user/sellerUser")
 
 const deleteUser = async (req, res) => {
@@ -10,13 +7,10 @@ const deleteUser = async (req, res) => {
     try {
         const userExist = await SellerUser.findOne({ user_id: user_id })
         if (userExist) {
-            if(userExist.role_type === "seller"){
-                await SellerUser.deleteOne({ user_id: user_id })
-                await SellerProfile.deleteOne({ user_id: user_id })
-                await Containers.deleteOne({ container_id: userExist.container_id })    
-            }else{
-                await BuyerUser.deleteOne({ user_id: user_id })
-                await BuyerProfile.deleteOne({ user_id: user_id })
+            await deleteOneH({ user_id: user_id }, userExist.role_type, "users")
+            await deleteOneH({ user_id: user_id }, userExist.role_type, "profiles")
+            if (userExist.role_type === "seller") {
+                await deleteOneH({ container_id: userExist.container_id }, userExist.role_type, "users")
             }
             res.status(200).send("User already deleted!")
         } else {
