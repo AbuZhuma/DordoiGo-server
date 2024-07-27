@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config(); 
 const users = require("./routes/users");
-const products = require("./routes/containers")
+const products = require("./routes/products")
 const profiles = require("./routes/profiles")
 const search = require("./routes/search")
 const app = express();
@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(err => console.log("MongoDB not connected", err));
 
 app.use('/api/users', users);
-app.use('/api/containers', products)
+app.use('/api/products', products)
 app.use('/api/profiles', profiles)  
 app.use('/api/search', search)
 

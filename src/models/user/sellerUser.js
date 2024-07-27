@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
     created_at: { type: String, required: true },
     lastname: { type: String, unique: false},
     bio: {type: String, unique: false},
-    products_category: { type: [String] },
     contact_number: { type: String, required: true, unique: true },
     container_id: { type: String, required: true, unique: true }
 })

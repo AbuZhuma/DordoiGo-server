@@ -1,19 +1,26 @@
-const BuyerUser = require("../../../models/user/buyerUser")
-const SellerUser = require("../../../models/user/sellerUser")
 const genUserid = require("../../../helpers/genIdH")
 const sendErr = require("../../../helpers/sendErrH")
-const SellerProfile = require("../../../models/profile/sellerProfile")
-const BuyerProfile = require("../../../models/profile/buyerProfile")
-const Product = require("../../../models/containers/container")
 const generateRandomID = require("../../../helpers/genIdH")
 const checkUser = require("../../../hooks/checkUser")
+const newOneH = require("../../../helpers/newOneH")
+const checkContainer = require("../../../hooks/checkContainer")
 
 const regUser = async (req, res) => {
-    const { username, email, password, role_type, contact_number } = req.body
+    if(!req.body.container_data || !req.body) {
+        sendErr(res, "bed_request", 400)
+        return
+    }
+    const { username, email, password, role_type, contact_number, container_data } = req.body
+    const {name, products_category, adress, position, description} = container_data
     try {
-        const answ = await checkUser(req.body)
-        if(answ !== "ok"){
-            sendErr(res, answ, 400)
+        const userAnsw = await checkUser(req.body)
+        const containerAnsw = await checkContainer(container_data, false)
+        if (userAnsw !== "ok") {
+            sendErr(res, userAnsw, 400)
+            return
+        }
+        if(containerAnsw !== "ok"){
+            res.status(400).send(containerAnsw)
             return
         }
         const userId = genUserid(15)
@@ -43,21 +50,26 @@ const regUser = async (req, res) => {
             container_id: container_id,
             products: []
         }
+        const optionsContainer = {
+            container_id: container_id,
+            name: name, 
+            products_category: products_category,
+            adress: adress, 
+            position: position,
+            description: description
+        }
         if (role_type === "seller") {
             optionsUser.container_id = container_id
             optionsProfile.container_id = container_id
-            const profile = new SellerProfile(optionsProfile)
-            const products = new Product(optionsProduct)
-            const user = new SellerUser(optionsUser)
-            await user.save()
+            const container = await newOneH(optionsContainer, "container")
+            const products = await newOneH(optionsProduct, "products")
             await products.save()
-            await profile.save()
-        }else{
-            const user = new BuyerUser(optionsUser)
-            await user.save()
-            const profile = new BuyerProfile(optionsProfile)
-            await profile.save()
-        }
+            await container.save()
+        }   
+        const profile = await newOneH(optionsProfile, "profiles", role_type)
+        const user = await newOneH(optionsUser, "users", role_type)
+        await user.save()
+        await profile.save()
         res.status(201).json({ message: "User registered!" })
     } catch (error) {
         res.status(500).json({ message: error.message })

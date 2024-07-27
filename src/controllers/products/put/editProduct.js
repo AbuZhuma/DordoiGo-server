@@ -1,12 +1,12 @@
-const getContainerByKey = require("../../../helpers/findMongoDb/containers/getContainerByKeyH");
 const sendErr = require("../../../helpers/sendErrH");
 const checkProduct = require("../../../hooks/checkProduct");
+const Products = require("../../../models/products/products");
 
 const editProduct = async (req, res) => {
     try {
         const { container_id, product_id, change } = req.body;
         if (container_id && product_id && change) {
-            const containerExist = await getContainerByKey({ container_id: container_id });
+            const containerExist = await Products.findOne({ container_id: container_id });
             const checkToHave = await checkProduct(change, true);
             if (containerExist && checkToHave.iCP) {
                 let productUpdated = false;

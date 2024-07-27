@@ -1,13 +1,13 @@
-const getUsersByKey = require("../../../helpers/findMongoDb/users/getUsersByKeyH")
 const { comparePassword } = require("../../../helpers/hashingH")
 const sendErr = require("../../../helpers/sendErrH")
 const SECRET_KEY = process.env.JWT_SECRET
 const jwt = require("jsonwebtoken")
+const SellerUser = require("../../../models/user/sellerUser")
 
 const authUser = async (req, res) => {
     const { email, password } = req.body
     try {
-        const user = await getUsersByKey({ email: email })
+        const user = await SellerUser.findOne({ email: email })
         if (user) {
             const checkPassword = await comparePassword(password, user.password)
             if (checkPassword) {

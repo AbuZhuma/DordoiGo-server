@@ -2,7 +2,7 @@ const BuyerUser = require("../models/user/buyerUser")
 const SellerUser = require("../models/user/sellerUser")
 const BuyerProfile = require("../models/profile/buyerProfile")
 const SellerProfile = require("../models/profile/sellerProfile")
-const Containers = require("../models/containers/container")
+const Products = require("../models/products/products")
 
 const deleteOneH = async(keys, role, type) => {
     try {
@@ -22,9 +22,9 @@ const deleteOneH = async(keys, role, type) => {
             }
             return
         }
-        if(type === "containers"){
+        if(type === "products"){
             if(role === "seller"){
-                await Containers.deleteOne(keys)
+                await Products.deleteOne(keys)
             }
             return
         }

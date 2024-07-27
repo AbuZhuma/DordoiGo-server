@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const containerSchema = new mongoose.Schema({
+const productsSchema = new mongoose.Schema({
     container_id: { type: String, required: true },
     products: [
         {
@@ -17,6 +17,6 @@ const containerSchema = new mongoose.Schema({
     ]
 })
 
-const Container = mongoose.model('container', containerSchema, "containers");
+const Products = mongoose.model('products', productsSchema, "products");
 
-module.exports = Container
+module.exports = Products

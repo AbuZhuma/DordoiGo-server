@@ -2,7 +2,7 @@ const BuyerUser = require("../models/user/buyerUser")
 const SellerUser = require("../models/user/sellerUser")
 const BuyerProfile = require("../models/profile/buyerProfile")
 const SellerProfile = require("../models/profile/sellerProfile")
-const Container = require("../models/containers/container")
+const Products = require("../models/products/products")
 
 const updateOneH = async(id, change, role, type) => {
     try {
@@ -24,8 +24,8 @@ const updateOneH = async(id, change, role, type) => {
                 return result
             }
         }
-        if(type === "containers"){
-            const result = await Container.updateOne(id, change)
+        if(type === "products"){
+            const result = await Products.updateOne(id, change)
             return result
         }
     } catch (error) {

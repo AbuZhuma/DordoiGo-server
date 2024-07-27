@@ -1,13 +1,13 @@
-const getContainerByKey = require("../../../helpers/findMongoDb/containers/getContainerByKeyH")
 const sendErr = require("../../../helpers/sendErrH")
+const Products = require("../../../models/products/products")
 
 const getAllProducts = async (req, res) => {
     try {
         const container_id = await req.url ? req.url.split("?")[1] : ''
         if(container_id){
-            const containerExist = await getContainerByKey({container_id: container_id})
-            if(containerExist){
-                res.status(200).json(containerExist.products)
+            const productsExist = await Products.findOne({container_id: container_id})
+            if(productsExist){
+                res.status(200).json(productsExist.products)
             }else{
                 sendErr(res, "not_fount", 4040)
             }

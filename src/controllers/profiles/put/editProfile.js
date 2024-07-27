@@ -1,13 +1,13 @@
-const getUsersByKey = require("../../../helpers/findMongoDb/users/getUsersByKeyH");
 const sendErr = require("../../../helpers/sendErrH");
 const updateOneH = require("../../../helpers/updateOneH");
 const checkUser = require("../../../hooks/checkUser");
+const SellerUser = require("../../../models/user/sellerUser");
 
 const editProfile = async (req, res) => {
     const { change, user_id } = req.body;
     const userId = user_id || null;
     try {
-        const user = await getUsersByKey({ user_id: userId })
+        const user = await SellerUser.findOne({ user_id: userId })
         if (!user) {
             sendErr(res, "not_found", 404);
             return;
@@ -17,7 +17,6 @@ const editProfile = async (req, res) => {
             sendErr(res, tohave, 500)
             return
         }
-        if(change.products_category && change.products_category.length > 10) delete change.products_category
         if(change.password) delete change.password
         if(change.role_type) delete change.role_type
         if(change.created_at) delete change.created_at
