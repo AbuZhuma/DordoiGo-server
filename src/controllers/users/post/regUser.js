@@ -7,7 +7,7 @@ const checkContainer = require("../../../hooks/checkContainer")
 
 const regUser = async (req, res) => {
     if(!req.body.container_data || !req.body) {
-        sendErr(res, "bed_request", 400)
+        sendErr(res, "container_not", 400)
         return
     }
     const { username, email, password, role_type, contact_number, container_data } = req.body
@@ -72,6 +72,7 @@ const regUser = async (req, res) => {
         await profile.save()
         res.status(201).json({ message: "User registered!" })
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: error.message })
     }
 }

@@ -5,6 +5,10 @@ const Products = require("../../../models/products/products");
 const addFeadBack = async(req, res) => {
     try {
         const {container_id, product_id, fead_back} = req.body
+        if (!container_id || !product_id || !fead_back) {
+            sendErr(res, "bed_request", 400)
+            return
+        }
         const containerExist = await Products.findOne({container_id: container_id})
         const checkFb = await checkFeadBack(fead_back)
         if(containerExist && checkFb){

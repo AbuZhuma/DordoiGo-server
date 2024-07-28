@@ -1,43 +1,32 @@
+const isCateg = require("../../helpers/isCateg")
 const sendErr = require("../../helpers/sendErrH")
 const Products = require("../../models/products/products")
 
-const isInclude = (obj, keys) => {
-    let answ = false
-    keys.map((el, i) => {
-        const splited = el.split("=")
-        if (obj && obj[splited[0]] && obj[splited[0]].includes(splited[1])) {
-            answ = true
-        }
-    })
-    return answ
-}
-
 const searchProducts = async (req, res) => {
     try {
-        const url = req.url.split("?")
-        const findetProducts = []
-        const keys = url.slice(1, url.length)
-        const productsPackage = await Products.find()
-        const products = []
-        for(let i = 0; i < productsPackage.length; i++){
-            const element = productsPackage[i]
-            for(let i = 0; i < element.products.length; i++){
-                const el = element.products[i]
-                products.push(el)
-            } 
-        }
-        if (products) {
-            for (let i = 0; i < products.length; i++) {
-                const el = products[i];
-                const isHave = await isInclude(el, keys)
-                if (isHave) findetProducts.push(el)
-            }
-            res.status(200).json(findetProducts)
-        } else {
-            sendErr(res, "products_or_container_not", 404)
+        const url = req.url.split("?")[1] ? req.url.split("?")[1].split("=") : false
+        const search = url[1]
+        if (url[0] !== "search") {
+            sendErr(res, "bed_request", 400)
             return
         }
-    } catch(error) {
+        
+        const allProducts = await Products.find()
+        if (!allProducts) sendErr(res, "not_found", 404)
+
+        const findetProducts = []
+        for (let i = 0; i < allProducts.length; i++) {
+            const elim = allProducts[i].products
+            for (let index = 0; index < elim.length; index++) {
+                const product = elim[index]
+                const isCtaegOk = await isCateg(product.categories, search)
+                if(product.name.includes(search) || search.includes(product.name) || isCtaegOk){
+                    findetProducts.push(product)
+                }
+            }
+        }
+        res.status(200).json(findetProducts)
+    } catch (error) {
         console.log(error)
         sendErr(res, "bed_request", 400)
     }

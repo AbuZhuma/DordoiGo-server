@@ -7,6 +7,9 @@ const editProfile = async (req, res) => {
     const { change, user_id } = req.body;
     const userId = user_id || null;
     try {
+        if(!change || !user_id){
+            sendErr(res, "bed_request", 400)
+        }
         const user = await SellerUser.findOne({ user_id: userId })
         if (!user) {
             sendErr(res, "not_found", 404);

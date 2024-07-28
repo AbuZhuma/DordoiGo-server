@@ -7,6 +7,10 @@ const SellerUser = require("../../../models/user/sellerUser")
 const authUser = async (req, res) => {
     const { email, password } = req.body
     try {
+        if(!email || !password){
+            sendErr(res, "bed_request", 400)
+            return
+        }
         const user = await SellerUser.findOne({ email: email })
         if (user) {
             const checkPassword = await comparePassword(password, user.password)
@@ -26,7 +30,7 @@ const authUser = async (req, res) => {
             sendErr(res, "user_not_exist", 404)
         }
     } catch (error) {
-        sendErr(res, "user_not_exist", 404)
+        sendErr(res, "bed_request", 404)
     }
 }
 

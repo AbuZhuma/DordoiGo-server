@@ -7,7 +7,7 @@ const checkUser = (body, tohave) => {
         if (username && username.length < 5) {
             return "username_reg"
         }
-        if (password !== cpassword || password.length < 5) {
+        if (!password || password !== cpassword || password.length < 5) {
             if (password !== cpassword) {
                 return "cpassword_reg"
             } else {
