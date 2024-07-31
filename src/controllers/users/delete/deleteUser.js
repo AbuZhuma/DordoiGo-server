@@ -3,7 +3,7 @@ const sendErr = require("../../../helpers/sendErrH");
 const SellerUser = require("../../../models/user/sellerUser")
 
 const deleteUser = async (req, res) => {
-    const { user_id } = req.body
+    const { user_id } = req.user
     try {
         if(!user_id){
             sendErr(res, "bed_request", 400)

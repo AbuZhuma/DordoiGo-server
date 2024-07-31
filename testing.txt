@@ -6,3 +6,4 @@ curl -X DELETE http://localhost:5000/api/users/dell -H "Content-Type: applicatio
 
 curl -X POST http://localhost:5000/api/products/product -H '{"container_id":"cpk2n", "product":{"name":"test11", "description":"hjbknlm;,", "price":"14$", "categories":["one", "two", "three"], "img_urls":["gjh", "jhbk", "hgjbk] }}'
 
+http://localhost:5000/api/users/dell      -H "Content-Type: application/json"      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIycWw0MXZvMSIsImlhdCI6MTcyMjQxODEyMCwiZXhwIjoxNzIyNDIxNzIwfQ.0ZSXlyqPzom7gV2q98xvOft5f3lBlQrqPHETsMXlS80"  

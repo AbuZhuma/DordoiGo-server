@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const containerSchema = new mongoose.Schema({
-    container_id: { type: String, required: true },
+    container_id: { type: String, required: true, unique: true  },
     name: { type: String, required: true },
     products_category:{ type: [String], required: true },
     adress: { type: [String], required: true },

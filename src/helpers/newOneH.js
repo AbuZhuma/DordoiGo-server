@@ -1,3 +1,4 @@
+const Chat = require("../models/chat/chat")
 const Container = require("../models/container/container")
 const Products = require("../models/products/products")
 const BuyerProfile = require("../models/profile/buyerProfile")
@@ -6,6 +7,9 @@ const BuyerUser = require("../models/user/buyerUser")
 const SellerUser = require("../models/user/sellerUser")
 
 const newOneH = (options, type, role) => {
+    if(!options || !type){
+        return 
+    }
     if(type === "users"){
         if(role === "seller"){
             const user = new SellerUser(options)

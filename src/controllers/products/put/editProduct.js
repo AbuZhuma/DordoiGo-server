@@ -8,26 +8,26 @@ const editProduct = async (req, res) => {
         if (container_id && product_id && change) {
             const containerExist = await Products.findOne({ container_id: container_id });
             const checkToHave = await checkProduct(change, true);
-            if (containerExist && checkToHave.iCP) {
-                let productUpdated = false;
-                containerExist.products.forEach((el) => {
-                    if (el.product_id === product_id) {
-                        if (change.product_id) delete change.product_id
-                        if (change.fead_backs) delete change.fead_backs
-                        if (change.name) el.name = change.name;
-                        if (change.description) el.description = change.description;
-                        if (change.price) el.price = change.price;
-                        if (change.categories) el.categories = change.categories;
-                        if (change.img_urls) el.img_urls = change.img_urls;
-                        productUpdated = true;
-                    }
-                });
-                if (productUpdated) {
-                    await containerExist.save();
-                    res.status(200).send("Product is updated!");
-                } else {
-                    sendErr(res, "not_found", 404);
+            if (!checkToHave.iCP) {
+                res.status(200).send(checkToHave.err);
+                return
+            }
+            let productUpdated = false;
+            containerExist.products.forEach((el) => {
+                if (el.product_id === product_id) {
+                    if (change.product_id) delete change.product_id
+                    if (change.fead_backs) delete change.fead_backs
+                    if (change.name) el.name = change.name;
+                    if (change.description) el.description = change.description;
+                    if (change.price) el.price = change.price;
+                    if (change.categories) el.categories = change.categories;
+                    if (change.img_urls) el.img_urls = change.img_urls;
+                    productUpdated = true;
                 }
+            });
+            if (productUpdated) {
+                await containerExist.save();
+                res.status(200).send("Product is updated!");
             } else {
                 sendErr(res, "bad_request", 400);
             }

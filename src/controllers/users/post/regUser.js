@@ -6,21 +6,19 @@ const newOneH = require("../../../helpers/newOneH")
 const checkContainer = require("../../../hooks/checkContainer")
 
 const regUser = async (req, res) => {
-    if(!req.body.container_data || !req.body) {
+    if(!req.body) {
+        sendErr(res, "bed_request", 400)
+        return
+    }
+    if(req.body.role_type && req.body.role === "seller" && !req.body.container_data){
         sendErr(res, "container_not", 400)
         return
     }
     const { username, email, password, role_type, contact_number, container_data } = req.body
-    const {name, products_category, adress, position, description} = container_data
     try {
         const userAnsw = await checkUser(req.body)
-        const containerAnsw = await checkContainer(container_data, false)
         if (userAnsw !== "ok") {
             sendErr(res, userAnsw, 400)
-            return
-        }
-        if(containerAnsw !== "ok"){
-            res.status(400).send(containerAnsw)
             return
         }
         const userId = genUserid(15)
@@ -35,7 +33,8 @@ const regUser = async (req, res) => {
             created_at: new Date(),
             is_active: true,
             lastname: "",
-            bio: ""
+            bio: "",
+            chats: []
         }
         const optionsProfile = {
             user_id: userId,
@@ -46,19 +45,25 @@ const regUser = async (req, res) => {
             role_type: role_type,
             bio: ""
         }
-        const optionsProduct = {
-            container_id: container_id,
-            products: []
-        }
-        const optionsContainer = {
-            container_id: container_id,
-            name: name, 
-            products_category: products_category,
-            adress: adress, 
-            position: position,
-            description: description
-        }
+        const createPosition = ''
         if (role_type === "seller") {
+            const containerAnsw = await checkContainer(container_data, false)
+            const optionsProduct = {
+                container_id: container_id,
+                products: []
+            }
+            if(containerAnsw !== "ok"){
+                res.status(400).send(containerAnsw)
+                return
+            }
+            const optionsContainer = {
+                container_id: container_id,
+                name: container_data.name, 
+                products_category: container_data.products_category,
+                adress: container_data.adress, 
+                position: 1212,
+                description: container_data.description
+            }
             optionsUser.container_id = container_id
             optionsProfile.container_id = container_id
             const container = await newOneH(optionsContainer, "container")

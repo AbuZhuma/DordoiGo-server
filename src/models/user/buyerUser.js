@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
     lastname: { type: String, unique: false},
     bio: {type: String, unique: false},
     is_active: { type: Boolean, required: true },
-    contact_number: { type: String, required: true, unique: true }
+    contact_number: { type: String, required: true, unique: true },
+    chats: { type: [String], required: true }
 })
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
