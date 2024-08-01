@@ -3,7 +3,12 @@ const sendErr = require("../../../helpers/sendErrH")
 const Products = require("../../../models/products/products")
 
 const deleteProduct = async (req, res) => {
-    const { container_id, product_id } = req.body
+    const {product_id } = req.body
+    const {container_id} = req.user
+    if(!container_id || !product_id){
+        sendErr(res, "bed_request", 400)
+        return
+    }
     try {
         const productsExist = await Products.findOne({ container_id: container_id })
         if (productsExist && productsExist.products.length) {
@@ -22,6 +27,7 @@ const deleteProduct = async (req, res) => {
             return
         }
     } catch (error) {
+        sendErr(res, "bed_request", 400)
         console.log(error)
     }
 }

@@ -4,7 +4,12 @@ const checkContainer = require("../../hooks/checkContainer")
 
 const editContainer = async(req, res) => {
     try {
-        const {container_id, change} = req.body
+        const change = req.body
+        const {container_id} = req.user
+        if(!container_id || !change){
+            sendErr(res, "bed_request", 400)
+            return
+        }
         const isContainerOkay =  change ? await checkContainer(change, true) : "!ok"    
         if(isContainerOkay === "ok" && container_id){
             if(change.container_id) delete change.container_id

@@ -16,6 +16,7 @@ const errors = {
     invalid_product:"Invalid product for adding",
     products_or_container_not: "This container or product not exist ",
     not_found: "just not fount",
-    container_not: "container_data or container not in options" 
+    container_not: "container_data or container not in options",
+    permisions_not: "dont have permissions"
 }
 module.exports = errors

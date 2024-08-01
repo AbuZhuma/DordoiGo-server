@@ -4,7 +4,8 @@ const checkUser = require("../../../hooks/checkUser");
 const SellerUser = require("../../../models/user/sellerUser");
 
 const editProfile = async (req, res) => {
-    const { change, user_id } = req.body;
+    const change = req.body;
+    const {user_id} = req.user
     const userId = user_id || null;
     try {
         if(!change || !user_id){

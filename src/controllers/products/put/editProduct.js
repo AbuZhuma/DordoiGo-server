@@ -4,7 +4,8 @@ const Products = require("../../../models/products/products");
 
 const editProduct = async (req, res) => {
     try {
-        const { container_id, product_id, change } = req.body;
+        const { product_id, change } = req.body;
+        const {container_id} = req.user
         if (container_id && product_id && change) {
             const containerExist = await Products.findOne({ container_id: container_id });
             const checkToHave = await checkProduct(change, true);

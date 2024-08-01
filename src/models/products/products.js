@@ -12,7 +12,7 @@ const productsSchema = new mongoose.Schema({
                 text: {type: String},
                 time: {type: String},
             }] },
-            product_id:  { type: String, required: true, unique: true  },
+            product_id:  { type: String, required: true  },
         }
     ]
 })

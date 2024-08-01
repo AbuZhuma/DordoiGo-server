@@ -10,6 +10,11 @@ const SellerUser = require("../../../models/user/sellerUser")
 const createChat = async (req, res) => {
     try {
         const { from, to } = req.body
+        const {user_id} = req.user
+        if(from !== user_id){
+            sendErr(res, "bed_request", 400)
+            return
+        }
         if (!from || !to) {
             sendErr(res, "bed_request", 400)
             return
@@ -32,7 +37,9 @@ const createChat = async (req, res) => {
             writer_two_id: to,
             messages: [{
                 from: "system",
-                message: `${isFromExist.username} open the chat`
+                message: `${isFromExist.username} open the chat`,
+                time: new Date(),
+                edicated: false
             }],
             created_at: new Date(),
         }

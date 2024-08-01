@@ -6,8 +6,8 @@ const Products = require("../../../models/products/products");
 
 const addProduct = async (req, res) => {
     try {
-        const { container_id, product } = req.body;
-        console.log(req.body)
+        const product = req.body;
+        const {container_id} = req.user
         if (!container_id || !product) {
             sendErr(res, "bed_request", 400)    
             return

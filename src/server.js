@@ -15,12 +15,11 @@ const filter = require("./routes/filter")
 const chat = require("./routes/chats")
 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100, 
-    message: 'Too many requests from this IP, please try again later.',
-    headers: true,
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
+  keyGenerator: (req, res) => req.clientIp 
 });
-  
+
 app.use(limiter);
 app.use(cors());
 app.use(helmet());
