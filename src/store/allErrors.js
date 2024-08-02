@@ -17,6 +17,7 @@ const errors = {
     products_or_container_not: "This container or product not exist ",
     not_found: "just not fount",
     container_not: "container_data or container not in options",
-    permisions_not: "dont have permissions"
+    permisions_not: "dont have permissions",
+    bed_message: "invalid message"
 }
 module.exports = errors

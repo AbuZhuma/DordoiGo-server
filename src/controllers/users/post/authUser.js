@@ -30,6 +30,7 @@ const authUser = async (req, res) => {
             sendErr(res, "user_not_exist", 404)
         }
     } catch (error) {
+        console.log(error)
         sendErr(res, "bed_request", 404)
     }
 }
