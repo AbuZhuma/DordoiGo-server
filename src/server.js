@@ -26,9 +26,9 @@ app.use(helmet());
 app.use(express.json());
 
 const PORT = config.PORT || 5000;
+const dbURI = config.MONGO_URI
 
-
-mongoose.connect()
+mongoose.connect(dbURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
