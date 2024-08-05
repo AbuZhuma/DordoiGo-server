@@ -29,7 +29,7 @@ const PORT = config.PORT || 5000;
 
 const dbURI = config.MONGO_URI
 
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/mydb')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
