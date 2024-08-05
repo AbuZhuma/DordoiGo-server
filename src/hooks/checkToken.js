@@ -1,6 +1,7 @@
-const SECRET_KEY = process.env.JWT_SECRET
 const jwt = require("jsonwebtoken");
 const SellerUser = require("../models/user/sellerUser");
+const config = require("../config");
+const SECRET_KEY = config.JWT_SECRET
 const checkToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];

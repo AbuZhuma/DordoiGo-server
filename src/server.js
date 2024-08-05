@@ -12,6 +12,7 @@ const search = require("./routes/search")
 const containers = require("./routes/containers")
 const filter = require("./routes/filter")
 const chat = require("./routes/chats");
+const config = require('./config');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -24,11 +25,13 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
-const PORT = process.env.PORT || 5000;
+const PORT = config.PORT || 5000;
 
-mongoose.connect(process.env.MONGO_URI)
+const dbURI = config.MONGO_URI
+
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log("MongoDB not connected", err));
+  .catch(err => console.error('MongoDB connection error:', err));
 
 app.use('/api/users', users);
 app.use('/api/products', products)
@@ -37,6 +40,9 @@ app.use('/api/search', search)
 app.use("/api/containers", containers)
 app.use("/api/filter", filter)
 app.use("/api/chats", chat)
+app.get("/test", (req, res) => {
+    res.send(dbURI)
+})
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

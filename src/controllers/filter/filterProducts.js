@@ -5,7 +5,7 @@ const Products = require("../../models/products/products")
 const filterProducts = async(req, res) => {
     try {
         const url = await req.url.split("?")
-        const filters = url[1].split("=")[1] ? url[1].split("=")[1] : false
+        const filters = url[1].split("=")[1] ? url[1].split("=")[1] : [""]
         const allProducts = await Products.find()
 
         if(!url || !filters || url[1].split("=")[0] !== "filters"){

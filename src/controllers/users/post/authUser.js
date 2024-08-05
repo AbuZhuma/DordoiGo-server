@@ -1,11 +1,12 @@
 const { comparePassword } = require("../../../helpers/hashingH")
 const sendErr = require("../../../helpers/sendErrH")
-const SECRET_KEY = process.env.JWT_SECRET
 const jwt = require("jsonwebtoken")
 const SellerUser = require("../../../models/user/sellerUser")
+const config = require("../../../config")
 
 const authUser = async (req, res) => {
     const { email, password } = req.body
+    const SECRET_KEY = config.JWT_SECRET
     try {
         if(!email || !password){
             sendErr(res, "bed_request", 400)

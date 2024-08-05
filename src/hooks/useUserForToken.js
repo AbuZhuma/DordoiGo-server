@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const SellerUser = require("../models/user/sellerUser");
-const SECRET_KEY = process.env.JWT_SECRET;
+const config = require("../config");
+const SECRET_KEY = config.JWT_SECRET
 
 const useUserForToken = (token) => {
   return new Promise((resolve, reject) => {
