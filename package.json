@@ -21,9 +21,6 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.4",
-    "nodemailer": "^6.9.14",
-    "nodemailer-direct-transport": "^3.3.2",
-    "socket.io": "^4.7.5",
     "ws": "^8.18.0"
   },
   "devDependencies": {

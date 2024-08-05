@@ -11,7 +11,7 @@ const profiles = require("./routes/profiles")
 const search = require("./routes/search")
 const containers = require("./routes/containers")
 const filter = require("./routes/filter")
-const chat = require("./routes/chats")
+const chat = require("./routes/chats");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -37,7 +37,6 @@ app.use('/api/search', search)
 app.use("/api/containers", containers)
 app.use("/api/filter", filter)
 app.use("/api/chats", chat)
-
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

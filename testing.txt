@@ -1,9 +1,0 @@
-curl -X POST http://localhost:5000/api/users/reg -H "Content-Type: application/json" -d '{"username":"Abdirahman","role_type":"seller","password":"abdi2008","cpassword":"abdi2008","email":"abdirahman@gmail.com","contact_number":"0502489560" , "container_data":{"name":"Abu market", "position": 13045,"adress":"turusbekova", "products_category":["one"]}}'
-
-curl -X POST http://localhost:5000/api/users/auth -H "Content-Type: application/json" -d '{"email":"abdirahman@gmail.com", "password":"abdi2008"}'
-
-curl -X DELETE http://localhost:5000/api/users/dell -H "Content-Type: application/json" -d '{"user_id":"3l2c0omd"}'
-
-curl -X POST http://localhost:5000/api/products/product -H "Content-Type: application/json" '{"container_id":"cpk2n", "product":{"name":"test11", "description":"hjbknlm;,", "price":"14$", "categories":["one", "two", "three"], "img_urls":["gjh", "jhbk", "hgjbk] }}'
-
-http://localhost:5000/api/users/dell      -H "Content-Type: application/json"      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJpdTJjdzliYSIsImlhdCI6MTcyMjQyMTczMSwiZXhwIjoxNzIyNDI1MzMxfQ.nJcypSnHwhqg3K2PYZY3OcmfqVtijuvau1BrFlCnSsU"
